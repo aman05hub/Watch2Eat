@@ -62,7 +62,7 @@ const FoodPartnerRegister = () => {
             </div>
             <div className="field-group">
               <label htmlFor="phone">Phone</label>
-              <input id="phone" name="phone" placeholder="+91 12345 67890" autoComplete="tel" />
+              <input id="phone" name="phone" placeholder="12345 67890" autoComplete="tel" />
             </div>
           </div>
             <div className="field-group">
