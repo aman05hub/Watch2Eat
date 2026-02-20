@@ -8,7 +8,7 @@ const Saved = () => {
     const [ videos, setVideos ] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/food/save", { withCredentials: true })
+        axios.get("https://watch2eat-backend.onrender.com/api/food/save", { withCredentials: true })
             .then(response => {
                 const list = response.data.savedFoods || []
                 const savedFoods = list.map((item) => ({
@@ -29,7 +29,7 @@ const Saved = () => {
 
     const removeSaved = async (item) => {
         try {
-            await axios.post("http://localhost:3000/api/food/save", { foodId: item._id }, { withCredentials: true })
+            await axios.post("https://watch2eat-backend.onrender.com/api/food/save", { foodId: item._id }, { withCredentials: true })
             setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: Math.max(0, (v.savesCount ?? 1) - 1) } : v))
         } catch {
             
