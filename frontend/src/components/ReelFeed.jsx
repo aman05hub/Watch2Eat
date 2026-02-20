@@ -70,7 +70,6 @@ const ReelFeed = ({ items = [], onLike, onSave, onCommentAdd, emptyMessage = 'No
                   </button>
                   <div className="reel-action__count">{item.likeCount ?? item.likesCount ?? item.likes ?? 0}</div>
                 </div>
-
                 <div className="reel-action-group">
                   <button 
                     className="reel-action" 

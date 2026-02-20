@@ -21,7 +21,8 @@ router.get('/',
 
 router.post('/like', 
     authMiddleware.authUserMiddleware, 
-    foodController.likeFood)
+    foodController.likeFood
+)
 
 router.post('/save',
     authMiddleware.authUserMiddleware,
@@ -39,6 +40,7 @@ router.post('/comment',
 )
 
 router.get('/comments/:id',
+    authMiddleware.authUserMiddleware,
     foodController.getFoodComments
 )
 

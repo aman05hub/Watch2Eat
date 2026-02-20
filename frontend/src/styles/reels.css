@@ -56,7 +56,7 @@
 
 .reel-content {
   position: relative;
-  width: 100%;
+  width: 85%;
   padding: var(--space-6);
   padding-bottom: calc(env(safe-area-inset-bottom, 0) + 72px); /* make space for bottom nav */
   display: flex;

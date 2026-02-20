@@ -70,6 +70,9 @@ async function likeFood(req, res) {
 
 async function saveFood(req, res) {
     const { foodId} = req.body;
+
+    console.log("Save API hit for:", foodId);
+
     const user = req.user;
 
     const isAlreadySaved = await SaveModel.findOne({
@@ -140,6 +143,10 @@ async function commentOnFood(req, res) {
             text: comment,
             username: user.username
         })
+
+        await foodModel.findByIdAndUpdate(foodId, {
+            $inc: { commentsCount: 1 }
+        });
         
         const populated = await newComment.populate('user', 'username');
 
@@ -147,6 +154,7 @@ async function commentOnFood(req, res) {
             message: "Comment added successfully",
             comment: populated
         })
+        console.log("Incrementing comment count for:", foodId);
     } catch (err) {
         res.status(500).json({
             message: "Error adding comment",

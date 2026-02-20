@@ -20,6 +20,10 @@ const foodSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    commentsCount: {
+        type: Number,
+        default: 0
+    },
     savesCount: {
         type: Number,
         default: 0

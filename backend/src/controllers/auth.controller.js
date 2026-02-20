@@ -6,6 +6,14 @@ const jwt = require('jsonwebtoken');
 async function registerUser(req,res){
     const {username,fullname,email,password} = req.body;
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({
+            message: "Invalid email format"
+        });
+    }
+
     const isUsernameAlreadyExists = await userModel.findOne({
         username
     })
@@ -16,11 +24,11 @@ async function registerUser(req,res){
         })
     }
 
-    const isUserAlreadyExists = await userModel.findOne({
+    const isEmailAlreadyExists = await userModel.findOne({
         email
     })
 
-    if(isUserAlreadyExists){
+    if(isEmailAlreadyExists){
         return res.status(400).json({
             message: "User already exists"
         })

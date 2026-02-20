@@ -85,4 +85,4 @@ const UserRegister = () => {
     );
 };
 
-export default UserRegister; //4:46
+export default UserRegister;

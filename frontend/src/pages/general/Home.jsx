@@ -7,14 +7,13 @@ import BottomNav from '../../components/BottomNav'
 const Home = () => {
     const [ videos, setVideos ] = useState([])
 
-    // useEffect(() => {
-    //     axios.get("http://localhost:3000/api/food", { withCredentials: true })
-    //         .then(response => {
-
-    //             setVideos(response.data.foodItems)
-    //         })
-    //         .catch(() => { /* noop: optionally handle error */ })
-    // }, [])
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/food", { withCredentials: true })
+            .then(response => {
+                setVideos(response.data.foodItems)
+            })
+            .catch(() => { /* noop: optionally handle error */ })
+    }, [])
 
     useEffect(() => {
   axios
@@ -50,10 +49,10 @@ const handleCommentAdd = (foodId) => {
     }
 
     async function saveVideo(item){
-        const response = await axios.post("http://localhost:3000/api/food/save", {foodId: item._id}, { withCredentials: true })
+        const response = await axios.post("http://localhost:3000/api/food/save", { foodId: item._id }, { withCredentials: true })
 
-        if(response.data.save){
-            setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: v.savesCount + 1 } : v))
+        if(response.data.save){ 
+            setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: v.savesCount + 1} : v))
         }
         else{
             setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: v.savesCount - 1} : v))
