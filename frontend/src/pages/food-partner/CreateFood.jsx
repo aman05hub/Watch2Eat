@@ -53,7 +53,7 @@ const onFileChange = (e) =>{
         formData.append('description', description);
         formData.append('video', videoFile);
 
-        const response = await axios.post("http://localhost:3000/api/food", formData,{
+        const response = await axios.post("https://watch2eat-backend.onrender.com/api/food", formData,{
             withCredentials: true,
         })
         navigate("/")
@@ -97,7 +97,7 @@ const onFileChange = (e) =>{
                                     <div className="file-dropzone-text">
                                         <strong>Tab to upload</strong> or drag and drop
                                     </div>
-                                    <div className="file-hint">MP4,WebM,MOV • Up to ~100MB</div>
+                                    <div className="file-hint">MP4,WebM • Up to ~50MB</div>
                                 </div>
                         </div>
 
@@ -129,7 +129,7 @@ const onFileChange = (e) =>{
                         <input
                             id="foodName"
                             type="text" 
-                            placeholder="e.g., Spicy Panner Wrap"
+                            placeholder="e.g., Spicy Panner"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             required
@@ -141,7 +141,7 @@ const onFileChange = (e) =>{
                         <textarea 
                             id="foodDesc"
                             rows={4}
-                            placeholder="Write a short description: ingredients , taste, spice level, etc"
+                            placeholder="Write a short description: ingredients , taste, etc"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         />
