@@ -12,7 +12,7 @@ const navigate = useNavigate();
         const username = e.target.username.value;
         const password = e.target.password.value;
 
-        const response = await axios.post("http://localhost:3000/api/auth/user/login",{
+        const response = await axios.post("https://watch2eat-backend.onrender.com/api/auth/user/login",{
           username,
           password
         },{
