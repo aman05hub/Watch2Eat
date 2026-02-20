@@ -19,7 +19,7 @@ const CommentsModal = ({ foodId, isOpen, onClose, onCommentAdd }) => {
     setLoading(true)
     setError('')
     try {
-      const response = await axios.get(`http://localhost:3000/api/food/comments/${foodId}`, {
+      const response = await axios.get(`https://watch2eat-backend.onrender.com/api/food/comments/${foodId}`, {
         withCredentials: true
       })
       setComments(response.data.comments || [])
@@ -39,7 +39,7 @@ const CommentsModal = ({ foodId, isOpen, onClose, onCommentAdd }) => {
     setSubmitting(true)
     try {
       const response = await axios.post(
-        'http://localhost:3000/api/food/comment',
+        'https://watch2eat-backend.onrender.com/api/food/comment',
         { foodId, comment: newComment },
         { withCredentials: true }
       )
