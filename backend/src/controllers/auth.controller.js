@@ -45,7 +45,11 @@ async function registerUser(req,res){
     const token = jwt.sign({
         id: user._id,
     }, process.env.JWT_SECRECT)
-    res.cookie("token",token)
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,      // Required for HTTPS (Render)
+    sameSite: "None",  // Required for cross-origin
+});
     res.status(201).json({
         message:"User Registered Successfully ",
         user:{
@@ -82,7 +86,11 @@ async function loginUser(req,res){
         id: user._id,
     },process.env.JWT_SECRECT)
 
-    res.cookie("token",token)
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,      // Required for HTTPS (Render)
+    sameSite: "None",  // Required for cross-origin
+});
 
     res.status(200).json({
         message:"User Logged in successfully",
@@ -129,7 +137,11 @@ async function registerFoodPartner(req,res){
         id: foodpartner._id,
     }, process.env.JWT_SECRECT)
 
-    res.cookie("token",token)
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,      // Required for HTTPS (Render)
+    sameSite: "None",  // Required for cross-origin
+});
 
     res.status(201).json({
         message: "Food Partner Registered Successfully ",
@@ -170,7 +182,11 @@ async function loginFoodPartner(req,res){
         id: foodPartner._id,
     },process.env.JWT_SECRECT)
 
-    res.cookie("token",token)
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,      // Required for HTTPS (Render)
+    sameSite: "None",  // Required for cross-origin
+});
 
     res.status(200).json({
         message: "Food Partner logged in successfully",
