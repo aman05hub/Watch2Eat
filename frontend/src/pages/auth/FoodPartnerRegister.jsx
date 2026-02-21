@@ -36,12 +36,16 @@ const FoodPartnerRegister = () => {
       <div className="auth-card" role="region" aria-labelledby="partner-register-title">
         <header>
           <div className="auth-icon">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="4" y="6" width="16" height="2" fill="#F4A460"/>
-              <rect x="4" y="10" width="16" height="2" fill="#228B22"/>
-              <rect x="4" y="12" width="16" height="2" fill="#FF6347"/>
-              <rect x="4" y="14" width="16" height="2" fill="#D2691E"/>
-              <rect x="4" y="16" width="16" height="2" fill="#F4A460"/>
+            <svg width="200" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <text x="32"
+                  y="40"
+                  text-anchor="middle"
+                  font-family="Arial, Helvetica, sans-serif"
+                  font-size="20"
+                  font-weight="bold"
+                  fill="#ff6a00">
+                  Watch2Eat
+              </text>
             </svg>
           </div>
           <h1 id="partner-register-title" className="auth-title">Partner sign up</h1>
