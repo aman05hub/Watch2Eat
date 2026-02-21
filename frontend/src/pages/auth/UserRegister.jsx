@@ -34,17 +34,17 @@ const UserRegister = () => {
             <div className="auth-card" role="region" aria-labelledby="user-register-title">
                 <header>
                     <div className="auth-icon">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="2" y="6" width="20" height="2" fill="#8B4513"/>
-                            <rect x="2" y="10" width="20" height="2" fill="#32CD32"/>
-                            <rect x="2" y="12" width="20" height="2" fill="#FF6347"/>
-                            <rect x="2" y="14" width="20" height="2" fill="#D2691E"/>
-                            <rect x="2" y="16" width="20" height="2" fill="#8B4513"/>
-                            <circle cx="6" cy="13" r="1" fill="#FFD700"/>
-                            <circle cx="10" cy="13" r="1" fill="#FFD700"/>
-                            <circle cx="14" cy="13" r="1" fill="#FFD700"/>
-                            <circle cx="18" cy="13" r="1" fill="#FFD700"/>
-                        </svg>
+                        <svg width="200" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <text x="32"
+                  y="40"
+                  text-anchor="middle"
+                  font-family="Arial, Helvetica, sans-serif"
+                  font-size="20"
+                  font-weight="bold"
+                  fill="#ff6a00">
+                  Watch2Eat
+              </text>
+            </svg>
                     </div>
                     <h1 id="user-register-title" className="auth-title">Create your account</h1>
                     <p className="auth-subtitle">Join to explore and enjoy delicious meals</p>
