@@ -27,12 +27,16 @@ const navigate = useNavigate();
       <div className="auth-card" role="region" aria-labelledby="user-login-title">
         <header>
           <div className="auth-icon">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2 L22 12 L12 22 L2 12 Z" fill="#FFA500" stroke="#8B4513" strokeWidth="1"/>
-              <path d="M12 2 L22 12 L12 22" fill="#FF6347"/>
-              <circle cx="8" cy="8" r="1" fill="#000"/>
-              <circle cx="16" cy="10" r="1" fill="#000"/>
-              <circle cx="10" cy="14" r="1" fill="#000"/>
+            <svg width="200" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <text x="32"
+                  y="40"
+                  text-anchor="middle"
+                  font-family="Arial, Helvetica, sans-serif"
+                  font-size="20"
+                  font-weight="bold"
+                  fill="#ff6a00">
+                  Watch2Eat
+              </text>
             </svg>
           </div>
           <h1 id="user-login-title" className="auth-title">Welcome back</h1>
