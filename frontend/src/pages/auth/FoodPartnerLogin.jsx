@@ -28,12 +28,16 @@ const FoodPartnerLogin = () => {
       <div className="auth-card" role="region" aria-labelledby="partner-login-title">
         <header>
           <div className="auth-icon">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 16 Q12 8 20 16 L20 20 Q12 14 4 20 Z" fill="#F4A460"/>
-              <ellipse cx="12" cy="18" rx="8" ry="2" fill="#D2691E"/>
-              <circle cx="8" cy="16" r="1" fill="#228B22"/>
-              <circle cx="12" cy="16" r="1" fill="#FF6347"/>
-              <circle cx="16" cy="16" r="1" fill="#FFD700"/>
+            <svg width="200" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <text x="32"
+                  y="40"
+                  text-anchor="middle"
+                  font-family="Arial, Helvetica, sans-serif"
+                  font-size="20"
+                  font-weight="bold"
+                  fill="#ff6a00">
+                  Watch2Eat
+              </text>
             </svg>
           </div>
           <h1 id="partner-login-title" className="auth-title">Partner login</h1>
