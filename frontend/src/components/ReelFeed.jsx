@@ -47,8 +47,7 @@ const ReelFeed = ({ items = [], onLike, onSave, onCommentAdd, emptyMessage = 'No
             <video
               ref={setVideoRef(item._id)}
               className="reel-video"
-              src={item.video}
-              
+              src={`${item.video}?tr=q-50,w-720`}
               playsInline
               loop
               preload="metadata"
