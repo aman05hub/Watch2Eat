@@ -66,7 +66,7 @@ const handleCommentAdd = (foodId) => {
             onLike={likeVideo}
             onSave={saveVideo}
             onCommentAdd={handleCommentAdd}
-            emptyMessage="No videos available."
+            emptyMessage="Loding... Please Wait.."
         />
         <BottomNav />
         </>
