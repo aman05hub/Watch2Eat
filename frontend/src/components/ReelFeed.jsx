@@ -15,6 +15,7 @@ const ReelFeed = ({ items = [], onLike, onSave, onCommentAdd, emptyMessage = 'No
           const video = entry.target
           if (!(video instanceof HTMLVideoElement)) return
           if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+            video.currentTime = 0;
             video.play().catch(() => { })
           } else {
             video.pause()
@@ -50,7 +51,7 @@ const ReelFeed = ({ items = [], onLike, onSave, onCommentAdd, emptyMessage = 'No
               src={`${item.video}?tr=q-50,w-720`}
               playsInline
               loop
-              preload="metadata"
+              preload="none"
             />
 
             <div className="reel-overlay">
