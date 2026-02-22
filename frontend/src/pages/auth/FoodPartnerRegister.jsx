@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/auth-shared.css';
 import axios from 'axios';
@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 const FoodPartnerRegister = () => {
 
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +20,10 @@ const FoodPartnerRegister = () => {
     const password = e.target.password.value;
     const address = e.target.address.value;
 
+    setLoading(true);
+    setError("");
+
+    try {
     const response = await axios.post("https://watch2eat-backend.onrender.com/api/auth/food-partner/register", {
       name:businessName,
       contactName,
@@ -30,6 +36,14 @@ const FoodPartnerRegister = () => {
     });
       
       navigate("/create-food");
+
+      } catch (err) {
+      setError(
+        err.response?.data?.message || "Registration failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className="auth-page-wrapper">
@@ -54,39 +68,58 @@ const FoodPartnerRegister = () => {
         <nav className="auth-alt-action" style={{marginTop: '-4px'}}>
           <strong style={{fontWeight:600}}>Switch:</strong> <Link to="/user/register">User</Link> • <Link to="/food-partner/register">Food partner</Link>
         </nav>
+
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
+
           <div className="field-group">
             <label htmlFor="businessName">Business Name</label>
             <input id="businessName" name="businessName" placeholder="Your Business Name" autoComplete="organization" />
           </div>
+
           <div className="two-col">
             <div className="field-group">
               <label htmlFor="contactName">Contact Name</label>
               <input id="contactName" name="contactName" placeholder="Your Name" autoComplete="name" />
             </div>
+
             <div className="field-group">
               <label htmlFor="phone">Phone</label>
-              <input id="phone" name="phone" placeholder="12345 67890" autoComplete="tel" />
+              <input id="phone" name="phone" placeholder="+91 12345 67890" autoComplete="tel" />
             </div>
+
           </div>
             <div className="field-group">
               <label htmlFor="email">Email</label>
               <input id="email" name="email" type="email" placeholder="business@example.com" autoComplete="email" />
             </div>
+
           <div className="field-group">
             <label htmlFor="password">Password</label>
             <input id="password" name="password" type="password" placeholder="Create password" autoComplete="new-password" />
           </div>
+
           <div className="field-group">
             <label htmlFor="address">Address</label>
             <input id="address" name="address" placeholder="123 , Market , Street , City" autoComplete="street-address" />
             <p className="small-note">Full address helps customers find you faster.</p>
           </div>
-          <button className="auth-submit" type="submit">Create Partner Account</button>
+
+          {error && (
+            <p style={{ color: "red", fontSize: "14px" }}>
+              {error}
+            </p>
+          )}
+
+          <button className="auth-submit" type="submit" disabled={loading}>
+            {loading ? "Creating account..." : "Create Partner Account"}
+          </button>
+
         </form>
+
         <div className="auth-alt-action">
           Already a partner? <Link to="/food-partner/login">Sign in</Link>
         </div>
+        
       </div>
     </div>
   );
