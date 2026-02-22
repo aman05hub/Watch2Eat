@@ -2,14 +2,26 @@ const foodPartnerModel = require('../models/foodpartner.model.js');
 const foodModel = require('../models/food.model.js')
 
 
-async function getFoodPartnerById(req, res){    
-    const foodPartnerId = req.params.id;
+async function getFoodPartnerById(req, res){   
+    
+    try {
+        const foodPartnerId = req.params.id;
 
-    const foodPartner = await foodPartnerModel.findById(foodPartnerId)
-    const foodItemsByFoodPartner = await foodModel.find({foodPartner: foodPartnerId})
+        if (!mongoose.Types.ObjectId.isValid(foodPartnerId)) {
+            return res.status(400).json({
+                message: "Invalid Food Partner ID"
+            });
+        }
+
+    const [foodPartner, foodItemsByFoodPartner] = await Promise.all([
+            foodPartnerModel.findById(foodPartnerId),
+            foodModel.find({ foodPartner: foodPartnerId })
+        ]);
 
     if(!foodPartner){
-        return res.status(404).json({message: "Food Partner not found"})
+        return res.status(404).json({
+            message: "Food Partner not found"
+        });
     }
 
     res.status(200).json({
@@ -19,6 +31,12 @@ async function getFoodPartnerById(req, res){
             foodItems: foodItemsByFoodPartner
         }
     });
+
+        } catch (error) {
+        res.status(500).json({
+            message: "Server error"
+        });
+    }
 }
 
 module.exports = {
