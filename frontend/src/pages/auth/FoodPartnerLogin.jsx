@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import '../../styles/auth-shared.css';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
@@ -6,12 +6,19 @@ import {useNavigate} from "react-router-dom";
 const FoodPartnerLogin = () => {
 
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const email = e.target.email.value;
         const password = e.target.password.value;
+
+        setLoading(true);
+        setError("");
+
+    try {
 
         const response = await axios.post("https://watch2eat-backend.onrender.com/api/auth/food-partner/login",{
           email,
@@ -21,7 +28,15 @@ const FoodPartnerLogin = () => {
 
         
         navigate('/create-food');
+
+        } catch (err) {
+      setError(
+        err.response?.data?.message || "Login failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
+  };
 
   return (
     <div className="auth-page-wrapper">
@@ -43,20 +58,34 @@ const FoodPartnerLogin = () => {
           <h1 id="partner-login-title" className="auth-title">Partner login</h1>
           <p className="auth-subtitle">Access your dashboard and manage orders.</p>
         </header>
+
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
+
           <div className="field-group">
             <label htmlFor="email">Email</label>
             <input id="email" name="email" type="email" placeholder="business@example.com" autoComplete="email" />
           </div>
+
           <div className="field-group">
             <label htmlFor="password">Password</label>
             <input id="password" name="password" type="password" placeholder="Password" autoComplete="current-password" />
           </div>
-          <button className="auth-submit" type="submit">Sign In</button>
+
+          {error && (
+            <p style={{ color: "red", fontSize: "14px" }}>
+              {error}
+            </p>
+          )}
+
+          <button className="auth-submit" type="submit" disabled={loading}>
+            {loading ? "Signing in..." : "Sign In"}
+          </button>
+
         </form>
         <div className="auth-alt-action">
           New partner? <a href="/food-partner/register">Create an account</a>
         </div>
+        
       </div>
     </div>
   );
