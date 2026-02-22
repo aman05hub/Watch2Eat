@@ -49,7 +49,12 @@ async function registerUser(req,res){
         id: user._id,
     }, process.env.JWT_SECRECT);
 
-    res.cookie("token",token)
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,          // ALWAYS true on Render (HTTPS)
+    sameSite: "none",      // REQUIRED for cross-site
+    path: "/",
+});
 
     res.status(201).json({
         message:"User Registered Successfully ",
@@ -90,9 +95,11 @@ async function loginUser(req,res){
         {expiresIn: "7d"}
     );
 
-    res.cookie("token",token,{
-        httpOnly: true,
-        secure:false
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,          // ALWAYS true on Render (HTTPS)
+    sameSite: "none",      // REQUIRED for cross-site
+    path: "/",
     });
 
     res.status(200).json({
