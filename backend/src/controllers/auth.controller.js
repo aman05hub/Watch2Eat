@@ -47,7 +47,9 @@ async function registerUser(req,res){
 
     const token = jwt.sign({
         id: user._id,
-    }, process.env.JWT_SECRECT);
+    }, process.env.JWT_SECRECT,
+    {expiresIn: "7d"}
+    );
 
     res.cookie("token", token);
 
@@ -144,8 +146,6 @@ async function registerFoodPartner(req,res){
         process.env.JWT_SECRECT,
         {expiresIn: "7d"}
     );
-
-    const isProduction = process.env.NODE_ENV === "production";
 
     res.cookie("token", token);
 
