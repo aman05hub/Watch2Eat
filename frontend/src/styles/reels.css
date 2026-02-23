@@ -143,3 +143,11 @@
 .empty-state{
   position: absolute; inset: 0; display: grid; place-items: center; color: #fff;
 }
+
+.loading-container{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0b1a2f;
+}
