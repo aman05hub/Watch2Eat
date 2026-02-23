@@ -50,7 +50,11 @@ async function registerUser(req,res){
     }, process.env.JWT_SECRECT
     );
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+});
 
     res.status(201).json({
         message:"User Registered Successfully ",
@@ -90,7 +94,11 @@ async function loginUser(req,res){
         process.env.JWT_SECRECT
     );
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+});
 
     res.status(200).json({
         message:"User Logged in successfully",
@@ -104,7 +112,11 @@ async function loginUser(req,res){
 }
 
 async function logoutUser(req,res){
-    res.clearCookie("token");
+    res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+});
     res.status(200).json({
         message:"User Logged out successfully"
     });
@@ -145,7 +157,11 @@ async function registerFoodPartner(req,res){
         {expiresIn: "7d"}
     );
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+});
 
     res.status(201).json({
         message: "Food Partner Registered Successfully ",
@@ -191,7 +207,11 @@ async function loginFoodPartner(req,res){
 
     const isProduction = process.env.NODE_ENV === "production";
 
-    res.cookie("token", token);
+   res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+});
 
     res.status(200).json({
         message: "Food Partner logged in successfully",
@@ -207,7 +227,11 @@ function logoutFoodPartner(req, res) {
 
     const isProduction = process.env.NODE_ENV === "production";
 
-    res.clearCookie("token");
+    res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+});
 
     res.status(200).json({
         message: "Food partner logged out successfully"
