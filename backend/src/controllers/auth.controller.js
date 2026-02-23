@@ -92,7 +92,9 @@ async function loginUser(req,res){
         {expiresIn: "7d"}
     );
 
-    res.cookie("token", token);
+    res.cookie("token", token,{
+        httpOnly: true
+    });
 
     res.status(200).json({
         message:"User Logged in successfully",
