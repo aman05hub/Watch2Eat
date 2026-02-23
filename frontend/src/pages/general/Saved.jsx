@@ -6,6 +6,7 @@ import BottomNav from '../../components/BottomNav'
 
 const Saved = () => {
     const [ videos, setVideos ] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         axios.get("https://watch2eat-backend.onrender.com/api/food/save", { withCredentials: true })
@@ -25,6 +26,9 @@ const Saved = () => {
             .catch(() => {
                 setVideos([])
             })
+            .finally(() => {
+            setLoading(false)
+        })
     }, [])
 
     const removeSaved = async (item) => {
@@ -34,6 +38,41 @@ const Saved = () => {
         } catch {
             
         }
+    }
+
+    if (loading) {
+        return (
+            <div style={{
+                height: "100vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                background: "#0b1a2f"
+            }}>
+                <svg viewBox="0 0 200 200" width="80">
+                    <circle fill="#F1F5F9" stroke="#F1F5F9" strokeWidth="15" r="15" cx="40" cy="65">
+                        <animate attributeName="cy" calcMode="spline" dur="2s"
+                            values="65;135;65;"
+                            keySplines=".5 0 .5 1;.5 0 .5 1"
+                            repeatCount="indefinite"
+                            begin="-0.4s" />
+                    </circle>
+                    <circle fill="#F1F5F9" stroke="#F1F5F9" strokeWidth="15" r="15" cx="100" cy="65">
+                        <animate attributeName="cy" calcMode="spline" dur="2s"
+                            values="65;135;65;"
+                            keySplines=".5 0 .5 1;.5 0 .5 1"
+                            repeatCount="indefinite"
+                            begin="-0.2s" />
+                    </circle>
+                    <circle fill="#F1F5F9" stroke="#F1F5F9" strokeWidth="15" r="15" cx="160" cy="65">
+                        <animate attributeName="cy" calcMode="spline" dur="2s"
+                            values="65;135;65;"
+                            keySplines=".5 0 .5 1;.5 0 .5 1"
+                            repeatCount="indefinite" />
+                    </circle>
+                </svg>
+            </div>
+        )
     }
 
     return (
