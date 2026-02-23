@@ -42,13 +42,7 @@ const Saved = () => {
 
     if (loading) {
         return (
-            <div style={{
-                height: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                background: "#0b1a2f"
-            }}>
+            <div className="loading-container">
                 <svg viewBox="0 0 200 200" width="80">
                     <circle fill="#F1F5F9" stroke="#F1F5F9" strokeWidth="15" r="15" cx="40" cy="65">
                         <animate attributeName="cy" calcMode="spline" dur="2s"
