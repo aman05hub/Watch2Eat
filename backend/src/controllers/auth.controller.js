@@ -3,7 +3,7 @@ const foodpartnerModel = require("../models/foodpartner.model");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-async function registerUser(req,res)
+async function registerUser(req,res){
     const username = req.body.username?.toLowerCase().trim();
     const fullname = req.body.fullname?.trim();
     const email = req.body.email?.toLowerCase().trim();
