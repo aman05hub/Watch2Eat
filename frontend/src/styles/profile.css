@@ -102,7 +102,6 @@
   font-size: 1.5rem;
 }
 
-/* Responsive tweaks */
 @media (max-width: 900px) {
   .profile-meta { grid-template-columns: 96px 1fr; }
   .profile-avatar { width: 96px; height: 96px; }
