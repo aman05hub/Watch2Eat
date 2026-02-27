@@ -58,7 +58,7 @@
   position: relative;
   width: 85%;
   padding: var(--space-6);
-  padding-bottom: calc(env(safe-area-inset-bottom, 0) + 72px); /* make space for bottom nav */
+  padding-bottom: calc(env(safe-area-inset-bottom, 0) + 72px); 
   display: flex;
   flex-direction: column;
   padding-right: 4.5rem;
