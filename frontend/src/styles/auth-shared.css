@@ -1,6 +1,5 @@
 @import './theme.css';
 
-/* Custom color scheme for auth pages */
 :root {
   --auth-color-accent: #ff6b35;
   --auth-color-accent-hover: #e55a2b;
@@ -25,7 +24,6 @@
   }
 }
 
-/* Override theme variables for auth pages */
 .auth-page-wrapper,
 .auth-card,
 .auth-title,
