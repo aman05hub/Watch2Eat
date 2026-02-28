@@ -26,7 +26,11 @@ const foodPartnerSchema = new mongoose.Schema({
         type:String,
         required:true
     }
-})
+},
+    {
+        timestamps:true
+    }                                          
+)
 
 const foodPartnerModel = mongoose.model("foodpartner",foodPartnerSchema);
 
