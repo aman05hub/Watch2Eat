@@ -6,18 +6,11 @@ import BottomNav from '../../components/BottomNav'
 
 const Home = () => {
     const [ videos, setVideos ] = useState([])
-
-    useEffect(() => {
-        axios.get("http://localhost:3000/api/food", { withCredentials: true })
-            .then(response => {
-                setVideos(response.data.foodItems)
-            })
-            .catch(() => { /* noop: optionally handle error */ })
-    }, [])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
   axios
-    .get("http://localhost:3000/api/food", { withCredentials: true })
+    .get("http://watch2eat-backend.onrender.com/api/food", { withCredentials: true })
     .then((response) => {
       const items = (response.data.foodItems || []).map((item) => ({
         ...item,
@@ -26,6 +19,10 @@ const Home = () => {
       setVideos(items)
     })
     .catch(() => {})
+    .finally(() => 
+      setLoading(false)
+    )
+
 }, [])
 
 const handleCommentAdd = (foodId) => {
@@ -38,7 +35,7 @@ const handleCommentAdd = (foodId) => {
 
 
     async function likeVideo(item){
-        const response = await axios.post("http://localhost:3000/api/food/like", { foodId: item._id }, { withCredentials: true })
+        const response = await axios.post("http://watch2eat-backend.onrender.com/api/food/like", { foodId: item._id }, { withCredentials: true })
 
         if(response.data.like){
             setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: v.likeCount + 1 } : v))
@@ -49,7 +46,7 @@ const handleCommentAdd = (foodId) => {
     }
 
     async function saveVideo(item){
-        const response = await axios.post("http://localhost:3000/api/food/save", { foodId: item._id }, { withCredentials: true })
+        const response = await axios.post("http://watch2eat-backend.onrender.com/api/food/save", { foodId: item._id }, { withCredentials: true })
 
         if(response.data.save){ 
             setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: v.savesCount + 1} : v))
@@ -57,6 +54,35 @@ const handleCommentAdd = (foodId) => {
         else{
             setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: v.savesCount - 1} : v))
         }
+    }
+
+    if (loading) {
+        return (
+            <div className="loading-container">
+                <svg viewBox="0 0 200 200" width="80">
+                    <circle fill="#F1F5F9" stroke="#F1F5F9" strokeWidth="15" r="15" cx="40" cy="65">
+                        <animate attributeName="cy" calcMode="spline" dur="2s"
+                            values="65;135;65;"
+                            keySplines=".5 0 .5 1;.5 0 .5 1"
+                            repeatCount="indefinite"
+                            begin="-0.4s" />
+                    </circle>
+                    <circle fill="#F1F5F9" stroke="#F1F5F9" strokeWidth="15" r="15" cx="100" cy="65">
+                        <animate attributeName="cy" calcMode="spline" dur="2s"
+                            values="65;135;65;"
+                            keySplines=".5 0 .5 1;.5 0 .5 1"
+                            repeatCount="indefinite"
+                            begin="-0.2s" />
+                    </circle>
+                    <circle fill="#F1F5F9" stroke="#F1F5F9" strokeWidth="15" r="15" cx="160" cy="65">
+                        <animate attributeName="cy" calcMode="spline" dur="2s"
+                            values="65;135;65;"
+                            keySplines=".5 0 .5 1;.5 0 .5 1"
+                            repeatCount="indefinite" />
+                    </circle>
+                </svg>
+            </div>
+        )
     }
 
     return (
@@ -73,4 +99,4 @@ const handleCommentAdd = (foodId) => {
     )
 }
 
-export default Home //4:28
+export default Home

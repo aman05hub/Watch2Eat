@@ -15,8 +15,7 @@ router.post('/',
     foodController.createFood)
 
 /* GET  /api/food/ */
-router.get('/',
-    authMiddleware.authUserMiddleware, 
+router.get('/', 
     foodController.getFoodItems);
 
 router.post('/like', 
@@ -43,5 +42,8 @@ router.get('/comments/:id',
     authMiddleware.authUserMiddleware,
     foodController.getFoodComments
 )
+
+// Comments read public
+router.get('/comments/:id', foodController.getFoodComments)
 
 module.exports = router;

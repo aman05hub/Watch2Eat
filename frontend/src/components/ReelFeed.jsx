@@ -1,12 +1,142 @@
+// import React, { useEffect, useRef, useState } from 'react'
+// import { Link } from 'react-router-dom'
+// import CommentsModal from './CommentsModal'
+
+
+// const ReelFeed = ({ items = [], onLike, onSave, onCommentAdd, emptyMessage = 'No videos yet.' }) => {
+//   const videoRefs = useRef(new Map())
+//   const [isCommentsOpen, setIsCommentsOpen] = useState(false)
+//   const [selectedFoodId, setSelectedFoodId] = useState(null)
+
+//   useEffect(() => {
+//     const observer = new IntersectionObserver(
+//       (entries) => {
+//         entries.forEach((entry) => {
+//           const video = entry.target
+//           if (!(video instanceof HTMLVideoElement)) return
+//           if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+//             video.currentTime = 0;
+//             video.play().catch(() => { })
+//           } else {
+//             video.pause()
+//           }
+//         })
+//       },
+//       { threshold: [0, 0.25, 0.6, 0.9, 1] }
+//     )
+
+//     videoRefs.current.forEach((vid) => observer.observe(vid))
+//     return () => observer.disconnect()
+//   }, [items])
+
+//   const setVideoRef = (id) => (el) => {
+//     if (!el) { videoRefs.current.delete(id); return }
+//     videoRefs.current.set(id, el)
+//   }
+
+//   return (
+//     <div className="reels-page">
+//       <div className="reels-feed" role="list">
+//         {items.length === 0 && (
+//           <div className="empty-state">
+//             <p>{emptyMessage}</p>
+//           </div>
+//         )}
+
+//         {items.map((item) => (
+//           <section key={item._id} className="reel" role="listitem">
+//             <video
+//               ref={setVideoRef(item._id)}
+//               className="reel-video"
+//               src={`${item.video}?tr=q-50,w-720`}
+//               playsInline
+//               loop
+//               preload="none"
+//             />
+
+//             <div className="reel-overlay">
+//               <div className="reel-overlay-gradient" aria-hidden="true" />
+//               <div className="reel-actions">
+                
+//                 <div className="reel-action-group">
+//                   <button
+//                     onClick={onLike ? () => onLike(item) : undefined}
+//                     className="reel-action"
+//                     aria-label="Like"
+//                   >
+//                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//                       <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 22l7.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8z" />
+//                     </svg>
+//                   </button>
+//                   <div className="reel-action__count">{item.likeCount ?? item.likesCount ?? item.likes ?? 0}</div>
+//                 </div>
+//                 <div className="reel-action-group">
+//                   <button 
+//                     className="reel-action" 
+//                     aria-label="Comments"
+//                     onClick={() => {
+//                       setSelectedFoodId(item._id)
+//                       setIsCommentsOpen(true)
+//                     }}
+//                   >
+//                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//                       <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
+//                     </svg>
+//                   </button>
+//                   <div className="reel-action__count">{item.commentsCount ?? (Array.isArray(item.comments) ? item.comments.length : 0)}</div>
+//                 </div>
+
+//                 <div className="reel-action-group">
+//                   <button
+//                     className="reel-action"
+//                     onClick={onSave ? () => onSave(item) : undefined}
+//                     aria-label="Bookmark"
+//                   >
+//                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//                       <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z" />
+//                     </svg>
+//                   </button>
+//                   <div className="reel-action__count">{item.savesCount ?? item.bookmarks ?? item.saves ?? 0}</div>
+//                 </div>
+
+//               </div>
+
+//               <div className="reel-content">
+//                 <p className="reel-description" title={item.description}>{item.description}</p>
+//                 {item.foodPartner && (
+//                   <Link className="reel-btn" to={"/food-partner/" + item.foodPartner} aria-label="Visit store">Visit store</Link>
+//                 )}
+//               </div>
+//             </div>
+//           </section>
+//         ))}
+//       </div>
+//       <CommentsModal 
+//         isOpen={isCommentsOpen}
+//         foodId={selectedFoodId}
+//         onClose={() => setIsCommentsOpen(false)}
+//         onCommentAdd={onCommentAdd}
+//       />
+//     </div>
+//   )
+// }
+
+// export default ReelFeed
+
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import CommentsModal from './CommentsModal'
-
+import { useAuth } from '../context/AuthContext'
+import LoginPromptModal from './LoginPromptModal'
+import '../styles/reels.css'
 
 const ReelFeed = ({ items = [], onLike, onSave, onCommentAdd, emptyMessage = 'No videos yet.' }) => {
   const videoRefs = useRef(new Map())
   const [isCommentsOpen, setIsCommentsOpen] = useState(false)
   const [selectedFoodId, setSelectedFoodId] = useState(null)
+  const [loginPrompt, setLoginPrompt] = useState({ Open: false, action: '' })
+
+  const { isLoggedIn } = useAuth()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -15,7 +145,8 @@ const ReelFeed = ({ items = [], onLike, onSave, onCommentAdd, emptyMessage = 'No
           const video = entry.target
           if (!(video instanceof HTMLVideoElement)) return
           if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
-            video.play().catch(() => { })
+            video.currentTime = 0
+            video.play().catch(() => {})
           } else {
             video.pause()
           }
@@ -23,7 +154,6 @@ const ReelFeed = ({ items = [], onLike, onSave, onCommentAdd, emptyMessage = 'No
       },
       { threshold: [0, 0.25, 0.6, 0.9, 1] }
     )
-
     videoRefs.current.forEach((vid) => observer.observe(vid))
     return () => observer.disconnect()
   }, [items])
@@ -33,13 +163,19 @@ const ReelFeed = ({ items = [], onLike, onSave, onCommentAdd, emptyMessage = 'No
     videoRefs.current.set(id, el)
   }
 
-  return (
+  const requireAuth = (action, label, fn) => {
+    if (!isLoggedIn) {
+      setLoginPrompt({ open: true, action: label })
+      return
+    }
+    fn()
+  }
+
+    return (
     <div className="reels-page">
       <div className="reels-feed" role="list">
         {items.length === 0 && (
-          <div className="empty-state">
-            <p>{emptyMessage}</p>
-          </div>
+          <div className="empty-state"><p>{emptyMessage}</p></div>
         )}
 
         {items.map((item) => (
@@ -47,22 +183,23 @@ const ReelFeed = ({ items = [], onLike, onSave, onCommentAdd, emptyMessage = 'No
             <video
               ref={setVideoRef(item._id)}
               className="reel-video"
-              src={item.video}
-              
+              src={`${item.video}?tr=q-50,w-720`}
               playsInline
               loop
-              preload="metadata"
+              preload="none"
             />
 
             <div className="reel-overlay">
               <div className="reel-overlay-gradient" aria-hidden="true" />
+
+              {/* ── Action buttons ── */}
               <div className="reel-actions">
-                
+
                 <div className="reel-action-group">
                   <button
-                    onClick={onLike ? () => onLike(item) : undefined}
                     className="reel-action"
                     aria-label="Like"
+                    onClick={() => requireAuth('like', 'like this reel', () => onLike?.(item))}
                   >
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 22l7.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8z" />
@@ -70,14 +207,15 @@ const ReelFeed = ({ items = [], onLike, onSave, onCommentAdd, emptyMessage = 'No
                   </button>
                   <div className="reel-action__count">{item.likeCount ?? item.likesCount ?? item.likes ?? 0}</div>
                 </div>
+
                 <div className="reel-action-group">
-                  <button 
-                    className="reel-action" 
+                  <button
+                    className="reel-action"
                     aria-label="Comments"
-                    onClick={() => {
+                    onClick={() => requireAuth('comment', 'comment on this reel', () => {
                       setSelectedFoodId(item._id)
                       setIsCommentsOpen(true)
-                    }}
+                    })}
                   >
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
@@ -89,8 +227,8 @@ const ReelFeed = ({ items = [], onLike, onSave, onCommentAdd, emptyMessage = 'No
                 <div className="reel-action-group">
                   <button
                     className="reel-action"
-                    onClick={onSave ? () => onSave(item) : undefined}
                     aria-label="Bookmark"
+                    onClick={() => requireAuth('save', 'save this reel', () => onSave?.(item))}
                   >
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z" />
@@ -101,21 +239,33 @@ const ReelFeed = ({ items = [], onLike, onSave, onCommentAdd, emptyMessage = 'No
 
               </div>
 
+              {/* ── Description + CTA ── */}
               <div className="reel-content">
                 <p className="reel-description" title={item.description}>{item.description}</p>
                 {item.foodPartner && (
-                  <Link className="reel-btn" to={"/food-partner/" + item.foodPartner} aria-label="Visit store">Visit store</Link>
+                  <Link className="reel-btn" to={"/food-partner/" + item.foodPartner} aria-label="Visit store">
+                    Visit store
+                  </Link>
                 )}
               </div>
             </div>
           </section>
         ))}
       </div>
-      <CommentsModal 
+
+      {/* Comments — only reachable if logged in due to requireAuth guard */}
+      <CommentsModal
         isOpen={isCommentsOpen}
         foodId={selectedFoodId}
         onClose={() => setIsCommentsOpen(false)}
         onCommentAdd={onCommentAdd}
+      />
+
+      {/* Login prompt modal */}
+      <LoginPromptModal
+        isOpen={loginPrompt.open}
+        action={loginPrompt.action}
+        onClose={() => setLoginPrompt({ open: false, action: '' })}
       />
     </div>
   )

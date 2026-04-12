@@ -1,3 +1,5 @@
+
+
 :root {
   --color-bg: #f9fafb;
   --color-surface: #ffffff;
@@ -13,7 +15,7 @@
   --radius-sm: 4px;
   --radius-md: 8px;
 
-  --font-stack: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-stack: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
   --space-1: 4px;
   --space-2: 8px;
@@ -24,25 +26,37 @@
   --space-8: 32px;
 
   --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
-  --shadow-md: 0 4px 12px -2px rgba(0,0,0,.08),0 2px 4px -2px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 12px -2px rgba(0,0,0,.08), 0 2px 4px -2px rgba(0,0,0,.06);
 
   --transition-base: 120ms cubic-bezier(.4,0,.2,1);
+
+  /* Layout */
+  --sidebar-width: 72px;         /* icon-only collapsed */
+  --sidebar-width-md: 220px;     /* label sidebar on md+ */
+  --bottom-nav-height: 56px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #0f172a; /* slate-900 */
-    --color-surface: #1e293b; /* slate-800 */
-    --color-surface-alt: #24324a; /* custom */
-    --color-border: #334155; /* slate-700 */
-    --color-text: #f1f5f9; /* slate-100 */
-    --color-text-secondary: #94a3b8; /* slate-400 */
-    --color-accent: #3b82f6; /* blue-500 */
-    --color-accent-hover: #60a5fa; /* blue-400 */
-    --color-danger: #f87171; /* red-400 */
+    --color-bg: #0f172a;
+    --color-surface: #1e293b;
+    --color-surface-alt: #24324a;
+    --color-border: #334155;
+    --color-text: #f1f5f9;
+    --color-text-secondary: #94a3b8;
+    --color-accent: #3b82f6;
+    --color-accent-hover: #60a5fa;
+    --color-danger: #f87171;
     --shadow-sm: 0 1px 2px rgba(0,0,0,.5);
-    --shadow-md: 0 4px 18px -4px rgba(0,0,0,.5),0 2px 6px -2px rgba(0,0,0,.4);
+    --shadow-md: 0 4px 18px -4px rgba(0,0,0,.5), 0 2px 6px -2px rgba(0,0,0,.4);
   }
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
 }
 
 body {
@@ -58,7 +72,5 @@ a {
   text-decoration: none;
   transition: color var(--transition-base);
 }
-
 a:hover, a:focus-visible { color: var(--color-accent-hover); }
-
 ::selection { background: var(--color-accent); color: #fff; }

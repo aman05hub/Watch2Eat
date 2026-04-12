@@ -6,9 +6,10 @@ import BottomNav from '../../components/BottomNav'
 
 const Saved = () => {
     const [ videos, setVideos ] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/food/save", { withCredentials: true })
+        axios.get("http://watch2eat-backend.onrender.com/api/food/save", { withCredentials: true })
             .then(response => {
                 const list = response.data.savedFoods || []
                 const savedFoods = list.map((item) => ({
@@ -25,15 +26,47 @@ const Saved = () => {
             .catch(() => {
                 setVideos([])
             })
+            .finally(() => {
+            setLoading(false)
+    })
     }, [])
 
     const removeSaved = async (item) => {
         try {
-            await axios.post("http://localhost:3000/api/food/save", { foodId: item._id }, { withCredentials: true })
+            await axios.post("http://watch2eat-backend.onrender.com/api/food/save", { foodId: item._id }, { withCredentials: true })
             setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: Math.max(0, (v.savesCount ?? 1) - 1) } : v))
         } catch {
             
         }
+    }
+
+    if (loading) {
+        return (
+            <div className="loading-container">
+                <svg viewBox="0 0 200 200" width="80">
+                    <circle fill="#F1F5F9" stroke="#F1F5F9" strokeWidth="15" r="15" cx="40" cy="65">
+                        <animate attributeName="cy" calcMode="spline" dur="2s"
+                            values="65;135;65;"
+                            keySplines=".5 0 .5 1;.5 0 .5 1"
+                            repeatCount="indefinite"
+                            begin="-0.4s" />
+                    </circle>
+                    <circle fill="#F1F5F9" stroke="#F1F5F9" strokeWidth="15" r="15" cx="100" cy="65">
+                        <animate attributeName="cy" calcMode="spline" dur="2s"
+                            values="65;135;65;"
+                            keySplines=".5 0 .5 1;.5 0 .5 1"
+                            repeatCount="indefinite"
+                            begin="-0.2s" />
+                    </circle>
+                    <circle fill="#F1F5F9" stroke="#F1F5F9" strokeWidth="15" r="15" cx="160" cy="65">
+                        <animate attributeName="cy" calcMode="spline" dur="2s"
+                            values="65;135;65;"
+                            keySplines=".5 0 .5 1;.5 0 .5 1"
+                            repeatCount="indefinite" />
+                    </circle>
+                </svg>
+            </div>
+        )
     }
 
     return (
