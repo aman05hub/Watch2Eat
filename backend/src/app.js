@@ -9,7 +9,7 @@ const cors = require('cors');
 const app = express();
 
 const allowedOrigins = [
-    "http://localhost:5173",
+    "https://localhost:5173",
     "https://watch2eat-frontend.onrender.com"
 ];
 
