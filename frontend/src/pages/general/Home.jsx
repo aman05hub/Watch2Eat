@@ -10,7 +10,7 @@ const Home = () => {
 
     useEffect(() => {
   axios
-    .get("http://watch2eat-backend.onrender.com/api/food", { withCredentials: true })
+    .get("https://watch2eat-backend.onrender.com/api/food", { withCredentials: true })
     .then((response) => {
       const items = (response.data.foodItems || []).map((item) => ({
         ...item,
